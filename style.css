@@ -1,0 +1,219 @@
+/*
+Theme Name: Scribbles2 Dark / Modern
+Description: A modern, dark-mode CSS override for the Scribbles2 theme.
+Version: 1.0 (V13)
+Author: [Your Username]
+License: MIT
+Target: [Name of the University/Community Site]
+
+-- NO PHP/HTML CHANGES REQUIRED. CSS ONLY. --
+*/
+
+/* ==========================================================
+   MODERN DARK THEME OVERRIDES
+   (Paste this at the very bottom of style.css)
+   ========================================================== */
+
+/* --- 1. FONTS & VARS --- */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;1,400&family=Roboto:wght@500;700&display=swap');
+
+/* --- 2. GLOBAL RESET & COLORS --- */
+* { box-sizing: border-box !important; }
+
+body, html, #left, #right, #top, #topleft, #topright, #main {
+    background-color: #121212 !important;
+    background-image: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: hidden !important;
+}
+
+body, td, th, div, p, li, input, textarea {
+    font-family: 'Open Sans', sans-serif !important;
+    color: #e0e0e0 !important;
+}
+
+/* --- 3. SURGICAL REMOVALS --- */
+#menubox, #topmenu, #headerarea, 
+img[src*="logo.jpg"], 
+td.catbg[height="32"] {
+    display: none !important;
+}
+
+/* --- 4. CONTROL BUTTONS GROUP (Fixed Top-Right) --- */
+a[onclick*="shrinkHeader"],
+a[onclick*="shrinkLeftBar"] {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: fixed !important;
+    top: 10px !important;
+    z-index: 10000 !important;
+    
+    width: 32px !important;
+    height: 32px !important;
+    
+    background-color: #2a2a2a !important;
+    color: #e0e0e0 !important;
+    border: 1px solid #444 !important;
+    border-radius: 6px !important;
+    
+    font-family: 'Consolas', monospace !important;
+    font-weight: bold !important;
+    font-size: 14px !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    transition: all 0.2s ease;
+}
+
+a[onclick*="shrinkHeader"]:hover,
+a[onclick*="shrinkLeftBar"]:hover {
+    background-color: #3ea6ff !important;
+    color: #000 !important;
+    border-color: #3ea6ff !important;
+}
+
+a[onclick*="shrinkHeader"] { right: 15px !important; }
+a[onclick*="shrinkLeftBar"] { right: 55px !important; }
+
+/* --- 5. UPPER SECTION (The Header) --- */
+#uppersection {
+    background-color: #181818 !important;
+    background-image: none !important;
+    forced-color-adjust: none !important;
+    border-bottom: 1px solid #333;
+    width: 100% !important;
+    
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    
+    padding: 5px 100px 5px 15px !important; 
+    margin-bottom: 10px !important;
+    min-height: 52px !important;
+    
+    transition: height 0.3s ease, min-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
+}
+
+/* Auto-Collapse Logic */
+#uppersection:has(#ava[style*="none"]):has(#myuser[style*="none"]) {
+    height: 0 !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    overflow: hidden !important;
+    opacity: 0;
+    pointer-events: none;
+}
+
+#uppersection form, #uppersection div { margin: 0 !important; padding: 0 !important; }
+#uppersection, #uppersection a, #uppersection b {
+    color: #bbb !important; text-decoration: none !important; font-size: 12px !important;
+}
+input, select, button, textarea {
+    background-color: #222 !important; border: 1px solid #444 !important;
+    color: white !important; padding: 6px 10px; border-radius: 6px;
+}
+
+/* --- 6. SIDEBAR FIX --- */
+td[width="170"] {
+    vertical-align: top !important;
+    padding-top: 10px !important;
+}
+
+/* --- 7. MAIN LAYOUT --- */
+#bodyarea {
+    width: calc(100% - 20px) !important;
+    margin: 0 auto !important;
+    display: table !important;
+    border-spacing: 0 15px !important;
+}
+
+/* --- 8. CARDS & HEADERS --- */
+.tborder {
+    background-color: #1e1e1e !important;
+    border: 1px solid #333 !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    width: 100% !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+tr.titlebg, tr.titlebg td, td.titlebg, .catbg, .titlebg, .catbg2 {
+    background-color: #2d2d2d !important;
+    background-image: none !important;
+    color: #ffffff !important;
+    forced-color-adjust: none !important;
+    padding: 10px 15px !important;
+    height: auto !important;
+    border-bottom: 1px solid #444 !important;
+}
+
+.catbg a, .titlebg a, .catbg2 a, .catbg, .titlebg {
+    font-family: 'Roboto', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 15px !important;
+    color: #ffffff !important;
+    text-transform: none !important;
+    text-decoration: none !important;
+}
+
+/* --- 9. POST CONTENT & LINKS --- */
+.windowbg, .windowbg2 {
+    background-color: #1e1e1e !important;
+    color: #e0e0e0 !important;
+    padding: 15px !important;
+    border-top: 1px solid #333 !important;
+}
+
+.windowbg a, .windowbg2 a {
+    color: #3ea6ff !important;
+    font-weight: 600;
+    text-decoration: none;
+}
+.windowbg a:hover, .windowbg2 a:hover { color: #fff !important; text-decoration: underline; }
+
+.code {
+    background-color: #141414 !important;
+    border: 1px solid #333;
+    border-left: 3px solid #3ea6ff !important;
+    color: #ccc !important;
+    font-family: 'Consolas', monospace !important;
+    padding: 10px; margin-top: 5px; border-radius: 4px;
+}
+
+/* --- 10. COMPACT QUOTES --- */
+.quoteheader {
+    background-color: #222 !important;
+    margin: 8px 0 0 0 !important;
+    padding: 4px 8px 0 8px !important;
+    font-size: 11px !important; color: #888 !important;
+    border-top-right-radius: 4px;
+    border-left: 2px solid #3ea6ff !important;
+}
+.quoteheader a { color: #5c9edb !important; font-weight: 600 !important; text-decoration: none !important; }
+
+.quote {
+    background-color: #222 !important;
+    border: none !important;
+    border-left: 2px solid #3ea6ff !important;
+    border-bottom-right-radius: 4px;
+    color: #ccc !important;
+    font-family: 'Open Sans', sans-serif !important;
+    font-size: 13px !important; font-style: italic !important;
+    padding: 2px 8px 6px 8px !important; margin: 0 0 10px 0 !important;
+}
+
+/* --- 11. MODERN ICONS --- */
+img[src*="off.gif"] {
+    width: 0 !important; height: 0 !important; padding: 8px !important;
+    background-color: #444444 !important; border-radius: 50% !important; opacity: 0.6;
+}
+img[src*="on.gif"], img[src*="on2.gif"] {
+    width: 0 !important; height: 0 !important; padding: 8px !important;
+    background-color: #3ea6ff !important; border-radius: 50% !important;
+    box-shadow: 0 0 10px rgba(62, 166, 255, 0.4);
+}
