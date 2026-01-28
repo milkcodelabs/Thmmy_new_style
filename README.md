@@ -6,7 +6,8 @@ A complete visual overhaul for the THMMY forum. This is a pure CSS "coat of pain
 
 ## Features:
 - **Dark Mode:** optimized for late-night studying/browsing.
-- **App-Like Feel:** Collapses the cluttered header/sidebar into a clean control cluster.
+-  **Collapsable top and side panels** Collapses the cluttered header/sidebar into a clean control cluster.
+- **App-Like Feel:**  Removes obsolete menus and simplifies navigation
 - **Zero Risk:** Does not touch the database or forum logic.
 
 ## Installation for Admins
