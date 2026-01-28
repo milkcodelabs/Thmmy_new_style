@@ -20,10 +20,10 @@ This theme is designed to be a drop-in replacement for the existing "Scribbles2"
 5. Enable the theme in the Admin Panel.
 
 ## How to use it RIGHT NOW (for Users)
-If the admins haven't installed it yet, you can use this theme immediately on your own browser using the **Stylus** extension.
+If the moderators haven't installed it yet, you can use this theme immediately on your own browser using the **Stylus** extension.
 
 1. Install **Stylus** for [Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) or [Firefox](https://addons.mozilla.org/en-US/firefox/addon/styl-us/).
-2. Click the extension icon and select "Write style for: [website-url]".
+2. Click the extension icon and select "Write style for: thmmy.gr".
 3. Copy the code from `style.css` in this repo.
 4. Paste it into the Stylus editor and hit Save.
 5. Enjoy the modern look!
