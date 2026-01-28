@@ -2,7 +2,7 @@
 
 A complete visual overhaul for the THMMY forum. This is a pure CSS "coat of paint" that modernizes the interface, adds Dark Mode, and improves mobile responsiveness without changing a single line of PHP or HTML.
 
-![Preview](assets/comparison.png)
+![Preview](home.png)
 
 ## Features:
 - **Dark Mode:** optimized for late-night studying/browsing.
@@ -31,7 +31,7 @@ If the admins haven't installed it yet, you can use this theme immediately on yo
 ## Screenshots
 
 ### Home page
-![Desktop](assets/home-view.png)
+![Desktop](home.png)
 
 ### Forum
-![Desktop](assets/forum-view.png)
+![Desktop](forum.png)
