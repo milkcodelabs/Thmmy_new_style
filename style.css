@@ -1,7 +1,7 @@
 /*
 Theme Name: Scribbles2 Dark / Modern
 Description: A modern, dark-mode CSS override for the Scribbles2 theme.
-Version: 1.0 (V13)
+Version: 7.0 (FINAL) - Complete UI & Bulletproof SVG Buttons
 Author: milkcodegym
 License: MIT
 Target: ECE auth forum thmmy.gr
@@ -10,296 +10,218 @@ Target: ECE auth forum thmmy.gr
 */
 
 /* ==========================================================
-   MODERN DARK THEME OVERRIDES
-   (Paste this at the very bottom of style.css)
+   1. CSS VARIABLES & FONTS
    ========================================================== */
-
-/* --- 1. FONTS & VARS --- */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;1,400&family=Roboto:wght@500;700&display=swap');
 
-/* --- 2. GLOBAL RESET & COLORS --- */
+:root {
+    --bg-body: #121212;
+    --bg-header: #181818;
+    --bg-card: #1e1e1e;
+    --bg-card-hover: #232323;
+    --bg-title: #2d2d2d;
+    --bg-pinned-start: #232730;
+    --bg-pinned-end: #1a1c23;
+    --link-blue: #3ea6ff;
+    --link-hover: #6ebcff;
+    --bullet-off: #444444;
+    --bullet-on: #3ea6ff;
+    --text-header: #ffffff;
+    --text-main: #e0e0e0;
+    --text-muted: #aaaaaa;
+    --border-color: #333333;
+    --border-light: #444444;
+}
+
+/* ==========================================================
+   2. GLOBAL RESET & BASE COLORS
+   ========================================================== */
 * { box-sizing: border-box !important; }
 
 body, html, #left, #right, #top, #topleft, #topright, #main {
-    background-color: #121212 !important;
+    background-color: var(--bg-body) !important;
     background-image: none !important;
     margin: 0 !important;
     padding: 0 !important;
     overflow-x: hidden !important;
 }
 
-body, td, th, div, p, li, input, textarea {
+body, td, th, div, p, li, textarea {
     font-family: 'Open Sans', sans-serif !important;
-    color: #e0e0e0 !important;
+    color: var(--text-main) !important;
 }
 
-/* --- 3. SURGICAL REMOVALS --- */
+.nav, .nav a, div.nav, div.nav b, div.nav b a { color: var(--text-muted) !important; text-decoration: none !important; }
+.nav a:hover, div.nav b a:hover { color: var(--link-hover) !important; text-decoration: underline !important; }
+
+/* ==========================================================
+   3. SURGICAL REMOVALS
+   ========================================================== */
 #menubox, #topmenu, #headerarea, 
 img[src*="logo.jpg"], 
-td.catbg[height="32"] {
-    display: none !important;
-}
+td.catbg[height="32"] { display: none !important; }
 
-/* --- FLOATING CONTROL BUTTONS (FIXED) --- */
-a[onclick*="shrinkHeader"],
-a[onclick*="shrinkLeftBar"] {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: flex-start !important; /* Keep icon to the left */
-    position: fixed !important;
-    top: 15px !important;
-    z-index: 10001 !important;
-    
-    width: 40px !important; /* Circle size */
-    height: 40px !important;
-    padding-left: 11px !important; /* Manually center the icon */
-    
-    background-color: #3ea6ff !important;
-    color: transparent !important; /* Hide original text */
-    border-radius: 25px !important;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
-    
-    text-decoration: none !important;
-    overflow: hidden !important;
-    white-space: nowrap !important;
-    
-    /* Smooth transition for width */
-    transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.2s;
+/* ==========================================================
+   4. FLOATING CONTROL BUTTONS
+   ========================================================== */
+a[onclick*="shrinkHeader"], a[onclick*="shrinkLeftBar"] {
+    display: flex !important; align-items: center !important; justify-content: flex-start !important;
+    position: fixed !important; top: 15px !important; z-index: 10001 !important;
+    width: 40px !important; height: 40px !important; padding-left: 12px !important;
+    background-color: var(--bg-card) !important; color: transparent !important;
+    border: 1px solid var(--border-light) !important; border-radius: 20px !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5); text-decoration: none !important;
+    overflow: hidden !important; white-space: nowrap !important;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
-
-/* Sidebar Button (Top Left) */
+a[onclick*="shrinkLeftBar"]:hover, a[onclick*="shrinkHeader"]:hover { width: 160px !important; background-color: var(--link-blue) !important; border-color: var(--link-blue) !important; }
 a[onclick*="shrinkLeftBar"] { left: 15px !important; }
-a[onclick*="shrinkLeftBar"]::before {
-    content: "◀";
-    color: #000 !important;
-    font-size: 16px !important;
-    font-weight: bold !important;
-    display: inline-block;
-    min-width: 18px; /* Fixed width for icon so it doesn't squish */
-    margin-right: 10px;
-}
-a[onclick*="shrinkLeftBar"]:hover { width: 160px !important; }
-a[onclick*="shrinkLeftBar"]:hover::after {
-    content: "Toggle Sidebar";
-    color: #000 !important;
-    font-size: 13px !important;
-    font-weight: bold !important;
-    opacity: 1;
-}
-
-/* Header Button (Top Right) */
+a[onclick*="shrinkLeftBar"]::before { content: "☰"; color: var(--text-main) !important; font-size: 16px !important; display: inline-block; min-width: 18px; margin-right: 10px; transition: color 0.3s; }
+a[onclick*="shrinkLeftBar"]:hover::before { color: #000 !important; }
+a[onclick*="shrinkLeftBar"]:hover::after { content: "Toggle Sidebar"; color: #000 !important; font-size: 13px !important; font-weight: 700 !important; }
 a[onclick*="shrinkHeader"] { right: 15px !important; }
-a[onclick*="shrinkHeader"]::before {
-    content: "▲";
-    color: #000 !important;
-    font-size: 16px !important;
-    font-weight: bold !important;
-    display: inline-block;
-    min-width: 18px; 
-    margin-right: 10px;
-}
-a[onclick*="shrinkHeader"]:hover { width: 160px !important; }
-a[onclick*="shrinkHeader"]:hover::after {
-    content: "Toggle Header";
-    color: #000 !important;
-    font-size: 13px !important;
-    font-weight: bold !important;
-}
+a[onclick*="shrinkHeader"]::before { content: "▲"; color: var(--text-main) !important; font-size: 14px !important; display: inline-block; min-width: 18px; margin-right: 10px; transition: color 0.3s; }
+a[onclick*="shrinkHeader"]:hover::before { color: #000 !important; }
+a[onclick*="shrinkHeader"]:hover::after { content: "Toggle Header"; color: #000 !important; font-size: 13px !important; font-weight: 700 !important; }
 
-/* --- HEADER ANIMATION DEFINITION --- */
-@keyframes slideHeaderDown {
-    0% { transform: translateY(-100%); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
-}
-
-/* --- 5. UPPER SECTION (The Header) --- */
-/* --- FLOATING HEADER CONTAINER --- */
+/* ==========================================================
+   5. UPPER SECTION (THE HEADER & LOGIN)
+   ========================================================== */
 #uppersection {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    min-height: 60px !important;
-    background-color: #181818 !important;
-    background-image: none !important;
-    forced-color-adjust: none !important;
-    border-bottom: 1px solid #333;
-    width: 100% !important;
-    height: auto !important;
-    
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    
-    padding: 5px 100px 5px 15px !important; 
-    margin-bottom: 10px !important;
-    
+    position: fixed !important; top: 0 !important; left: 0 !important; width: 100% !important; min-height: 60px !important; height: auto !important;
+    background-color: var(--bg-header) !important; background-image: none !important;
+    border-bottom: 1px solid var(--border-color); box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
+    display: flex !important; align-items: center !important; justify-content: space-between !important;
+    padding: 10px 60px !important; margin: 0 !important; z-index: 10000 !important;
     transition: height 0.3s ease, min-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
 }
+body { padding-top: 60px !important; }
+#uppersection:has(#ava[style*="none"]):has(#myuser[style*="none"]) { height: 0 !important; min-height: 0 !important; padding: 0 !important; border: none !important; overflow: hidden !important; opacity: 0; pointer-events: none; }
+#uppersection form { display: flex !important; align-items: center !important; gap: 12px !important; margin: 0 !important; padding: 0 !important; flex-wrap: wrap !important; }
+#uppersection div, #uppersection td { padding: 0 !important; margin: 0 !important; }
+#uppersection, #uppersection a, #uppersection b { color: var(--text-muted) !important; text-decoration: none !important; font-size: 12px !important; }
 
-/* --- FLOATING HEADER CONTAINER --- */
-#uppersection {
-    border-bottom: 1px solid #333;
-    
-    z-index: 10000 !important;
-    padding: 5px 60px !important; /* Padding keeps content away from the floating buttons */
-    margin: 0 !important;
-}
+/* ==========================================================
+   6. MAIN LAYOUT & CARDS
+   ========================================================== */
+td[width="170"] { vertical-align: top !important; padding-top: 10px !important; }
+#bodyarea { width: calc(100% - 20px) !important; max-width: 1400px !important; margin: 0 auto !important; display: table !important; border-spacing: 0 15px !important; }
 
-/* Push the rest of the site down so it doesn't hide behind the header */
-body {
-    padding-top: 60px !important;
+.tborder { 
+    background-color: var(--bg-card) !important; border: 1px solid var(--border-color) !important; 
+    border-radius: 12px !important; overflow: hidden !important; padding: 0 !important; width: 100% !important; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5); 
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+tr.titlebg, tr.titlebg td, td.titlebg, .catbg, .titlebg, .catbg2 { background-color: var(--bg-title) !important; background-image: none !important; color: var(--text-header) !important; padding: 12px 15px !important; height: auto !important; border-bottom: 1px solid var(--border-light) !important; }
+.catbg a, .titlebg a, .catbg2 a, .catbg, .titlebg { font-family: 'Roboto', sans-serif !important; font-weight: 700 !important; font-size: 15px !important; color: var(--text-header) !important; text-transform: none !important; text-decoration: none !important; }
 
-/* Auto-Collapse Logic */
-#uppersection:has(#ava[style*="none"]):has(#myuser[style*="none"]) {
-    height: 0 !important;
-    min-height: 0 !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    border: none !important;
-    overflow: hidden !important;
-    opacity: 0;
-    pointer-events: none;
+/* ==========================================================
+   7. POST CONTENT, ROWS & HIGHLIGHTS
+   ========================================================== */
+.windowbg, .windowbg2 { 
+    background-color: var(--bg-card) !important; color: var(--text-main) !important; 
+    padding: 15px !important; border-top: 1px solid var(--border-color) !important; 
+    transition: background-color 0.15s ease;
 }
+.windowbg3 { background: linear-gradient(135deg, var(--bg-pinned-start) 0%, var(--bg-pinned-end) 100%) !important; color: var(--text-header) !important; font-family: 'Open Sans', sans-serif !important; font-size: small !important; text-align: center !important; vertical-align: middle !important; padding: 15px !important; border-top: 1px solid var(--border-color) !important; border-left: 4px solid var(--link-blue) !important; box-shadow: inset 0 0 15px rgba(62, 166, 255, 0.05) !important; }
+.windowbg a, .windowbg2 a, .windowbg3 a { color: var(--link-blue) !important; font-weight: 600; text-decoration: none; }
+.windowbg a:hover, .windowbg2 a:hover, .windowbg3 a:hover { color: var(--text-header) !important; text-decoration: underline; }
 
-#uppersection form, #uppersection div { margin: 0 !important; padding: 0 !important; }
-#uppersection, #uppersection a, #uppersection b {
-    color: #bbb !important; text-decoration: none !important; font-size: 12px !important;
-}
-input, select, button, textarea {
-    background-color: #222 !important; border: 1px solid #444 !important;
-    color: white !important; padding: 6px 10px; border-radius: 6px;
-}
+/* ==========================================================
+   8. DYNAMIC HOVER EFFECTS
+   ========================================================== */
+tr:hover > .windowbg, tr:hover > .windowbg2 { background-color: var(--bg-card-hover) !important; }
 
-/* --- 6. SIDEBAR FIX --- */
-td[width="170"] {
-    vertical-align: top !important;
-    padding-top: 10px !important;
-}
+/* ==========================================================
+   9. CODE BLOCKS & QUOTES
+   ========================================================== */
+.code { background-color: #141414 !important; border: 1px solid var(--border-color); border-left: 3px solid var(--link-blue) !important; color: #ccc !important; font-family: 'Consolas', monospace !important; padding: 12px !important; margin-top: 5px; border-radius: 6px !important; overflow-x: auto; }
+.quoteheader { background-color: #222 !important; margin: 10px 0 0 0 !important; padding: 6px 10px 0 10px !important; font-size: 11px !important; color: var(--text-muted) !important; border-top-right-radius: 6px !important; border-left: 2px solid var(--link-blue) !important; }
+.quoteheader a { color: var(--link-hover) !important; font-weight: 600 !important; text-decoration: none !important; }
+.quote { background-color: #222 !important; border: none !important; border-left: 2px solid var(--link-blue) !important; border-bottom-right-radius: 6px !important; color: #ccc !important; font-family: 'Open Sans', sans-serif !important; font-size: 13px !important; font-style: italic !important; padding: 4px 10px 10px 10px !important; margin: 0 0 12px 0 !important; }
 
-/* --- 7. MAIN LAYOUT --- */
-#bodyarea {
-    width: calc(100% - 20px) !important;
-    margin: 0 auto !important;
-    display: table !important;
-    border-spacing: 0 15px !important;
-}
-
-/* --- 8. CARDS & HEADERS --- */
-.tborder {
-    background-color: #1e1e1e !important;
-    border: 1px solid #333 !important;
-    border-radius: 12px !important;
-    overflow: hidden !important;
-    padding: 0 !important;
-    width: 100% !important;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+/* ==========================================================
+   10. MODERN UI ICONS (SVG REPLACEMENT)
+   ========================================================== */
+img[src*="xx.gif"], img[src*="normal_post.gif"], img[src*="hot_post.gif"], img[src*="veryhot_post.gif"], 
+img[src*="exclamation.gif"], img[src*="file.gif"], img[src*="info.gif"], img[src*="INFO.png"], 
+img[src*="stats_info.gif"], img[src*="stats_views.gif"], img[src*="tpoptions.gif"],
+img[src*="calendar.gif"], img[src*="members.gif"], img[src*="online.gif"] {
+    width: 22px !important; height: 22px !important; object-fit: contain !important; vertical-align: middle !important;
 }
 
-tr.titlebg, tr.titlebg td, td.titlebg, .catbg, .titlebg, .catbg2 {
-    background-color: #2d2d2d !important;
-    background-image: none !important;
-    color: #ffffff !important;
-    forced-color-adjust: none !important;
-    padding: 10px 15px !important;
-    height: auto !important;
-    border-bottom: 1px solid #444 !important;
+img[src*="calendar.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233ea6ff'><path d='M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z'/></svg>") !important; }
+img[src*="members.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233ea6ff'><path d='M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z'/></svg>") !important; }
+img[src*="online.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234caf50'><path d='M21 11.08C20.65 6.42 16.75 2.8 12 2.8s-8.65 3.62-9 8.28H1v2h2c.35 4.66 4.25 8.28 9 8.28s8.65-3.62 9-8.28h2v-2h-2zM12 19.36c-3.69 0-6.73-2.8-7-6.36h14c-.27 3.56-3.31 6.36-7 6.36z'/><circle cx='12' cy='12' r='3'/></svg>") !important; }
+img[src*="go_up.gif"], img[src*="go_down.gif"] { width: 16px !important; height: 16px !important; object-fit: contain !important; margin: 0 4px !important; vertical-align: text-bottom !important; }
+img[src*="last_post.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233ea6ff'><path d='M5.59 7.41L10.18 12l-4.59 4.59L7 18l6-6-6-6zM16 6h2v12h-2z'/></svg>") !important; width: 14px !important; height: 14px !important; margin-left: 4px !important; vertical-align: baseline !important; }
+img[src*="show_sticky.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffeb3b'><path d='M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2z'/></svg>") !important; width: 16px !important; height: 16px !important; margin: 0 4px !important; vertical-align: middle !important; }
+img[src*="quick_lock.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23f44336'><path d='M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z'/></svg>") !important; width: 16px !important; height: 16px !important; margin: 0 4px !important; vertical-align: middle !important; }
+img[src*="new.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 14'><rect width='28' height='14' rx='3' fill='%23f44336'/><text x='14' y='10' font-family='sans-serif' font-size='9' font-weight='bold' fill='%23ffffff' text-anchor='middle'>NEW</text></svg>") !important; width: 28px !important; height: 14px !important; margin-left: 6px !important; vertical-align: baseline !important; }
+
+img[src*="xx.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233ea6ff'><path d='M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z'/></svg>") !important; }
+img[src*="normal_post.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23888888'><path d='M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z'/></svg>") !important; }
+img[src*="hot_post.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><path d='M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z'/></svg>") !important; }
+img[src*="veryhot_post.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23f44336'><path d='M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z'/></svg>") !important; }
+img[src*="exclamation.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffeb3b'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z'/></svg>") !important; }
+img[src*="go_up.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233ea6ff'><path d='M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z'/></svg>") !important; }
+img[src*="go_down.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233ea6ff'><path d='M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z'/></svg>") !important; }
+img[src*="file.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23aaaaaa'><path d='M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z'/></svg>") !important; }
+img[src*="info.gif"], img[src*="INFO.png"], img[src*="stats_info.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233ea6ff'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z'/></svg>") !important; }
+img[src*="stats_views.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23aaaaaa'><path d='M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z'/></svg>") !important; }
+img[src*="tpoptions.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23aaaaaa'><path d='M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.06-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.73,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.06,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.43-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.49-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z'/></svg>") !important; }
+img[src*="off.gif"] { width: 0 !important; height: 0 !important; padding: 8px !important; background-color: var(--bullet-off) !important; border-radius: 50% !important; opacity: 0.6; margin: 2px !important; }
+img[src*="on.gif"], img[src*="on2.gif"] { width: 0 !important; height: 0 !important; padding: 8px !important; background-color: var(--bullet-on) !important; border-radius: 50% !important; box-shadow: 0 0 10px rgba(62, 166, 255, 0.4); margin: 2px !important; }
+
+/* ==========================================================
+   11. TEXT-EMBEDDED BUTTONS (SVG MAGIC)
+   ========================================================== */
+img[src*="TPdownloadfile.gif"], img[src*="markread.gif"], img[src*="notify.gif"], img[src*="new_topic.gif"], img[src*="new_poll.gif"], img[src*="quote.gif"] { width: auto !important; height: 32px !important; border-radius: 6px !important; object-fit: contain !important; cursor: pointer !important; box-shadow: 0 2px 6px rgba(0,0,0,0.4) !important; transition: filter 0.2s ease, transform 0.1s ease !important; }
+img[src*="TPdownloadfile.gif"]:hover, img[src*="markread.gif"]:hover, img[src*="notify.gif"]:hover, img[src*="new_topic.gif"]:hover, img[src*="new_poll.gif"]:hover, img[src*="quote.gif"]:hover { filter: brightness(1.15) !important; }
+img[src*="TPdownloadfile.gif"]:active, img[src*="markread.gif"]:active, img[src*="notify.gif"]:active, img[src*="new_topic.gif"]:active, img[src*="new_poll.gif"]:active, img[src*="quote.gif"]:active { transform: scale(0.96) !important; }
+
+img[src*="TPdownloadfile.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 105 32'><rect width='105' height='32' rx='6' fill='%233ea6ff'/><path d='M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z' fill='%23121212' transform='translate(6, 4) scale(0.9)'/><text x='32' y='21' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23121212'>Download</text></svg>") !important; }
+img[src*="markread.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 110 32'><rect width='110' height='32' rx='6' fill='%233ea6ff'/><path d='M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z' fill='%23121212' transform='translate(6, 4) scale(0.9)'/><text x='34' y='21' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23121212'>Mark Read</text></svg>") !important; }
+img[src*="notify.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 85 32'><rect width='85' height='32' rx='6' fill='%233ea6ff'/><path d='M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z' fill='%23121212' transform='translate(4, 4) scale(0.9)'/><text x='30' y='21' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23121212'>Notify</text></svg>") !important; }
+img[src*="new_topic.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 105 32'><rect width='105' height='32' rx='6' fill='%233ea6ff'/><path d='M19 2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h4l3 3 3-3h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7V8h4V4h2v4h4v4z' fill='%23121212' transform='translate(6, 4) scale(0.9)'/><text x='32' y='21' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23121212'>New Topic</text></svg>") !important; }
+img[src*="new_poll.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 32'><rect width='100' height='32' rx='6' fill='%233ea6ff'/><path d='M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z' fill='%23121212' transform='translate(6, 4) scale(0.9)'/><text x='32' y='21' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23121212'>New Poll</text></svg>") !important; }
+img[src*="quote.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 85 32'><rect width='85' height='32' rx='6' fill='%233ea6ff'/><path d='M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z' fill='%23121212' transform='translate(4, 5) scale(0.9)'/><text x='30' y='21' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23121212'>Quote</text></svg>") !important; }
+
+/* ==========================================================
+   12. MODERN INPUTS
+   ========================================================== */
+input, select, button, textarea { background-color: #222 !important; border: 1px solid var(--border-light) !important; color: var(--text-header) !important; font-family: 'Open Sans', sans-serif !important; padding: 6px 10px; border-radius: 6px; }
+#uppersection input[type="text"], #uppersection input[type="password"], #uppersection select { background-color: #2a2a2a !important; border: 1px solid var(--border-light) !important; color: var(--text-header) !important; padding: 0 12px !important; border-radius: 6px !important; outline: none; height: 34px !important; box-sizing: border-box !important; transition: border-color 0.2s; }
+#uppersection input[type="text"]:focus, #uppersection input[type="password"]:focus { border-color: var(--link-blue) !important; }
+#uppersection input[type="submit"] { background-color: var(--link-blue) !important; color: #000 !important; font-weight: bold !important; border: none !important; padding: 0 16px !important; height: 34px !important; border-radius: 6px !important; cursor: pointer !important; box-sizing: border-box !important; transition: background 0.2s, transform 0.1s; }
+#uppersection input[type="submit"]:hover { background-color: var(--link-hover) !important; transform: scale(1.03); }
+#uppersection input[type="submit"]:active { transform: scale(0.95); }
+
+/* ==========================================================
+   13. EXTRA TEXT-EMBEDDED BUTTONS (Topic View Additions)
+   ========================================================== */
+
+/* Base Styles & Hover Animations for the new buttons */
+img[src*="reply.gif"], img[src*="markunread.gif"], img[src*="print.gif"] { 
+    width: auto !important; height: 32px !important; border-radius: 6px !important; 
+    object-fit: contain !important; cursor: pointer !important; 
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4) !important; transition: filter 0.2s ease, transform 0.1s ease !important; 
+}
+img[src*="reply.gif"]:hover, img[src*="markunread.gif"]:hover, img[src*="print.gif"]:hover { filter: brightness(1.15) !important; }
+img[src*="reply.gif"]:active, img[src*="markunread.gif"]:active, img[src*="print.gif"]:active { transform: scale(0.96) !important; }
+
+/* 1. Reply Button (85px wide, Arrow icon) */
+img[src*="reply.gif"] { 
+    content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 85 32'><rect width='85' height='32' rx='6' fill='%233ea6ff'/><path d='M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z' fill='%23121212' transform='translate(6, 5) scale(0.9)'/><text x='30' y='21' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23121212'>Reply</text></svg>") !important; 
 }
 
-.catbg a, .titlebg a, .catbg2 a, .catbg, .titlebg {
-    font-family: 'Roboto', sans-serif !important;
-    font-weight: 700 !important;
-    font-size: 15px !important;
-    color: #ffffff !important;
-    text-transform: none !important;
-    text-decoration: none !important;
+/* 2. Mark Unread Button (120px wide, Closed Envelope icon) */
+img[src*="markunread.gif"] { 
+    content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 32'><rect width='120' height='32' rx='6' fill='%233ea6ff'/><path d='M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z' fill='%23121212' transform='translate(6, 4) scale(0.9)'/><text x='34' y='21' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23121212'>Mark Unread</text></svg>") !important; 
 }
 
-/* --- 9. POST CONTENT & LINKS --- */
-.windowbg, .windowbg2 {
-    background-color: #1e1e1e !important;
-    color: #e0e0e0 !important;
-    padding: 15px !important;
-    border-top: 1px solid #333 !important;
-}
-
-.windowbg a, .windowbg2 a {
-    color: #3ea6ff !important;
-    font-weight: 600;
-    text-decoration: none;
-}
-.windowbg a:hover, .windowbg2 a:hover { color: #fff !important; text-decoration: underline; }
-
-.code {
-    background-color: #141414 !important;
-    border: 1px solid #333;
-    border-left: 3px solid #3ea6ff !important;
-    color: #ccc !important;
-    font-family: 'Consolas', monospace !important;
-    padding: 10px; margin-top: 5px; border-radius: 4px;
-}
-
-/* --- 10. COMPACT QUOTES --- */
-.quoteheader {
-    background-color: #222 !important;
-    margin: 8px 0 0 0 !important;
-    padding: 4px 8px 0 8px !important;
-    font-size: 11px !important; color: #888 !important;
-    border-top-right-radius: 4px;
-    border-left: 2px solid #3ea6ff !important;
-}
-.quoteheader a { color: #5c9edb !important; font-weight: 600 !important; text-decoration: none !important; }
-
-.quote {
-    background-color: #222 !important;
-    border: none !important;
-    border-left: 2px solid #3ea6ff !important;
-    border-bottom-right-radius: 4px;
-    color: #ccc !important;
-    font-family: 'Open Sans', sans-serif !important;
-    font-size: 13px !important; font-style: italic !important;
-    padding: 2px 8px 6px 8px !important; margin: 0 0 10px 0 !important;
-}
-
-/* --- 11. MODERN ICONS --- */
-img[src*="off.gif"] {
-    width: 0 !important; height: 0 !important; padding: 8px !important;
-    background-color: #444444 !important; border-radius: 50% !important; opacity: 0.6;
-}
-img[src*="on.gif"], img[src*="on2.gif"] {
-    width: 0 !important; height: 0 !important; padding: 8px !important;
-    background-color: #3ea6ff !important; border-radius: 50% !important;
-    box-shadow: 0 0 10px rgba(62, 166, 255, 0.4);
-}
-/* --- MODERN INPUTS & BUTTONS --- */
-#uppersection input[type="text"], 
-#uppersection input[type="password"],
-#uppersection select {
-    background-color: #2a2a2a !important;
-    border: 1px solid #444 !important;
-    color: #fff !important;
-    padding: 6px 10px !important;
-    border-radius: 4px !important;
-    outline: none;
-    margin: 2px !important;
-}
-
-#uppersection input[type="text"]:focus, 
-#uppersection input[type="password"]:focus {
-    border-color: #3ea6ff !important;
-}
-
-#uppersection input[type="submit"] {
-    background-color: #3ea6ff !important;
-    color: #000 !important;
-    font-weight: bold !important;
-    border: none !important;
-    padding: 6px 15px !important;
-    border-radius: 4px !important;
-    cursor: pointer !important;
-    transition: background 0.2s;
-}
-
-#uppersection input[type="submit"]:hover {
-    background-color: #6ebcff !important;
+/* 3. Print Button (85px wide, Printer icon) */
+img[src*="print.gif"] { 
+    content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 85 32'><rect width='85' height='32' rx='6' fill='%233ea6ff'/><path d='M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z' fill='%23121212' transform='translate(4, 4) scale(0.9)'/><text x='32' y='21' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23121212'>Print</text></svg>") !important; 
 }
