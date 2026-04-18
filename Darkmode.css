@@ -1,13 +1,10 @@
 /*
 Theme Name: Scribbles2 Dark / Modern
-Description: A modern, dark-mode CSS override for the Scribbles2 theme.
-Version: 7.0 (FINAL) - Complete UI & Bulletproof SVG Buttons
+Description: A polished, dark-mode CSS override for the Scribbles2 theme with smooth animations.
+Version: 7.1
 Author: milkcodegym
 License: MIT
 Target: ECE auth forum thmmy.gr
-
--- NO PHP/HTML CHANGES REQUIRED. CSS ONLY. --
-*/
 
 /* ==========================================================
    1. CSS VARIABLES & FONTS
@@ -19,7 +16,7 @@ Target: ECE auth forum thmmy.gr
     --bg-header: #181818;
     --bg-card: #1e1e1e;
     --bg-card-hover: #232323;
-    --bg-title: #2d2d2d;
+    --bg-title: #1a1a1a;
     --bg-pinned-start: #232730;
     --bg-pinned-end: #1a1c23;
     --link-blue: #3ea6ff;
@@ -38,7 +35,7 @@ Target: ECE auth forum thmmy.gr
    ========================================================== */
 * { box-sizing: border-box !important; }
 
-body, html, #left, #right, #top, #topleft, #topright, #main {
+body, html, #top, #topleft, #topright, #main {
     background-color: var(--bg-body) !important;
     background-image: none !important;
     margin: 0 !important;
@@ -85,7 +82,7 @@ a[onclick*="shrinkHeader"]:hover::before { color: #000 !important; }
 a[onclick*="shrinkHeader"]:hover::after { content: "Toggle Header"; color: #000 !important; font-size: 13px !important; font-weight: 700 !important; }
 
 /* ==========================================================
-   5. UPPER SECTION (THE HEADER & LOGIN)
+   5. UPPER SECTION (THE HEADER)
    ========================================================== */
 #uppersection {
     position: fixed !important; top: 0 !important; left: 0 !important; width: 100% !important; min-height: 60px !important; height: auto !important;
@@ -102,44 +99,103 @@ body { padding-top: 60px !important; }
 #uppersection, #uppersection a, #uppersection b { color: var(--text-muted) !important; text-decoration: none !important; font-size: 12px !important; }
 
 /* ==========================================================
-   6. MAIN LAYOUT & CARDS
+   6. SIDEBAR ANIMATION (SLIDE-IN FROM LEFT)
    ========================================================== */
-td[width="170"] { vertical-align: top !important; padding-top: 10px !important; }
+td#left {
+    background-color: var(--bg-card) !important;
+    vertical-align: top !important; 
+    padding: 15px 10px 10px 10px !important;
+    border-right: 1px solid var(--border-color) !important;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transform: translateX(0);
+    opacity: 1;
+}
+td#left[style*="none"] {
+    display: table-cell !important;
+    width: 0 !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    opacity: 0 !important;
+    transform: translateX(-40px) !important;
+    border-right-color: transparent !important;
+    pointer-events: none !important;
+}
+
+td#left > div { overflow: hidden !important; width: 170px !important; }
+
+/* ==========================================================
+   7. MAIN LAYOUT & CARDS
+   ========================================================== */
 #bodyarea { width: calc(100% - 20px) !important; max-width: 1400px !important; margin: 0 auto !important; display: table !important; border-spacing: 0 15px !important; }
 
 .tborder { 
-    background-color: var(--bg-card) !important; border: 1px solid var(--border-color) !important; 
-    border-radius: 12px !important; overflow: hidden !important; padding: 0 !important; width: 100% !important; 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.5); 
+    background-color: var(--bg-card) !important; 
+    border: 1px solid var(--border-color) !important; 
+    border-radius: 8px !important; 
+    overflow: hidden !important; 
+    padding: 0 !important; 
+    width: 100% !important; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important; 
+    border-spacing: 0 !important;
+    border-collapse: collapse !important; 
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-tr.titlebg, tr.titlebg td, td.titlebg, .catbg, .titlebg, .catbg2 { background-color: var(--bg-title) !important; background-image: none !important; color: var(--text-header) !important; padding: 12px 15px !important; height: auto !important; border-bottom: 1px solid var(--border-light) !important; }
-.catbg a, .titlebg a, .catbg2 a, .catbg, .titlebg { font-family: 'Roboto', sans-serif !important; font-weight: 700 !important; font-size: 15px !important; color: var(--text-header) !important; text-transform: none !important; text-decoration: none !important; }
+
+tr.titlebg, tr.titlebg td, td.titlebg, .catbg, .titlebg, .catbg2 { 
+    background-color: var(--bg-title) !important; 
+    background-image: none !important; 
+    color: var(--text-muted) !important; 
+    padding: 14px 15px 12px 15px !important; 
+    height: auto !important; 
+    border-bottom: 2px solid var(--border-color) !important; 
+}
+.catbg a, .titlebg a, .catbg2 a, .catbg, .titlebg { 
+    font-family: 'Roboto', sans-serif !important; 
+    font-weight: 600 !important; 
+    font-size: 12px !important; 
+    text-transform: uppercase !important; 
+    letter-spacing: 0.5px !important;
+    color: var(--text-muted) !important; 
+    text-decoration: none !important; 
+}
 
 /* ==========================================================
-   7. POST CONTENT, ROWS & HIGHLIGHTS
+   8. POST CONTENT, ROWS & HIGHLIGHTS
    ========================================================== */
+.windowbg, .windowbg2, .windowbg3 {
+    border-left: none !important; 
+    border-right: none !important;
+}
 .windowbg, .windowbg2 { 
     background-color: var(--bg-card) !important; color: var(--text-main) !important; 
-    padding: 15px !important; border-top: 1px solid var(--border-color) !important; 
+    padding: 16px 15px !important; border-top: none !important; border-bottom: 1px solid var(--border-color) !important; 
     transition: background-color 0.15s ease;
 }
-.windowbg3 { background: linear-gradient(135deg, var(--bg-pinned-start) 0%, var(--bg-pinned-end) 100%) !important; color: var(--text-header) !important; font-family: 'Open Sans', sans-serif !important; font-size: small !important; text-align: center !important; vertical-align: middle !important; padding: 15px !important; border-top: 1px solid var(--border-color) !important; border-left: 4px solid var(--link-blue) !important; box-shadow: inset 0 0 15px rgba(62, 166, 255, 0.05) !important; }
+.windowbg3 { 
+    background: linear-gradient(135deg, var(--bg-pinned-start) 0%, var(--bg-pinned-end) 100%) !important; 
+    color: var(--text-main) !important; 
+    font-family: 'Open Sans', sans-serif !important; 
+    font-size: small !important; 
+    text-align: center !important; vertical-align: middle !important; 
+    padding: 16px 15px !important; 
+    border-top: none !important; border-bottom: 1px solid var(--border-color) !important; 
+    box-shadow: none !important; 
+}
+tr > td.windowbg3:first-child { border-left: 3px solid var(--link-blue) !important; }
+
 .windowbg a, .windowbg2 a, .windowbg3 a { color: var(--link-blue) !important; font-weight: 600; text-decoration: none; }
 .windowbg a:hover, .windowbg2 a:hover, .windowbg3 a:hover { color: var(--text-header) !important; text-decoration: underline; }
 
-/* ==========================================================
-   8. DYNAMIC HOVER EFFECTS
-   ========================================================== */
+/* Dynamic Hover Effects */
 tr:hover > .windowbg, tr:hover > .windowbg2 { background-color: var(--bg-card-hover) !important; }
 
 /* ==========================================================
    9. CODE BLOCKS & QUOTES
    ========================================================== */
 .code { background-color: #141414 !important; border: 1px solid var(--border-color); border-left: 3px solid var(--link-blue) !important; color: #ccc !important; font-family: 'Consolas', monospace !important; padding: 12px !important; margin-top: 5px; border-radius: 6px !important; overflow-x: auto; }
-.quoteheader { background-color: #222 !important; margin: 10px 0 0 0 !important; padding: 6px 10px 0 10px !important; font-size: 11px !important; color: var(--text-muted) !important; border-top-right-radius: 6px !important; border-left: 2px solid var(--link-blue) !important; }
+.quoteheader { background-color: #2a2a2a !important; margin: 10px 0 0 0 !important; padding: 8px 12px 0 12px !important; font-size: 11px !important; color: var(--text-muted) !important; border-top-right-radius: 6px !important; border-left: 2px solid var(--link-blue) !important; }
 .quoteheader a { color: var(--link-hover) !important; font-weight: 600 !important; text-decoration: none !important; }
-.quote { background-color: #222 !important; border: none !important; border-left: 2px solid var(--link-blue) !important; border-bottom-right-radius: 6px !important; color: #ccc !important; font-family: 'Open Sans', sans-serif !important; font-size: 13px !important; font-style: italic !important; padding: 4px 10px 10px 10px !important; margin: 0 0 12px 0 !important; }
+.quote { background-color: #2a2a2a !important; border: none !important; border-left: 2px solid var(--link-blue) !important; border-bottom-right-radius: 6px !important; color: var(--text-main) !important; font-family: 'Open Sans', sans-serif !important; font-size: 13px !important; font-style: italic !important; padding: 4px 12px 12px 12px !important; margin: 0 0 12px 0 !important; }
 
 /* ==========================================================
    10. MODERN UI ICONS (SVG REPLACEMENT)
@@ -175,18 +231,25 @@ img[src*="off.gif"] { width: 0 !important; height: 0 !important; padding: 8px !i
 img[src*="on.gif"], img[src*="on2.gif"] { width: 0 !important; height: 0 !important; padding: 8px !important; background-color: var(--bullet-on) !important; border-radius: 50% !important; box-shadow: 0 0 10px rgba(62, 166, 255, 0.4); margin: 2px !important; }
 
 /* ==========================================================
-   11. TEXT-EMBEDDED BUTTONS (SVG MAGIC)
+   11. TEXT-EMBEDDED BUTTONS (SVG MAGIC WITH HIERARCHY)
    ========================================================== */
-img[src*="TPdownloadfile.gif"], img[src*="markread.gif"], img[src*="notify.gif"], img[src*="new_topic.gif"], img[src*="new_poll.gif"], img[src*="quote.gif"] { width: auto !important; height: 32px !important; border-radius: 6px !important; object-fit: contain !important; cursor: pointer !important; box-shadow: 0 2px 6px rgba(0,0,0,0.4) !important; transition: filter 0.2s ease, transform 0.1s ease !important; }
-img[src*="TPdownloadfile.gif"]:hover, img[src*="markread.gif"]:hover, img[src*="notify.gif"]:hover, img[src*="new_topic.gif"]:hover, img[src*="new_poll.gif"]:hover, img[src*="quote.gif"]:hover { filter: brightness(1.15) !important; }
+img[src*="TPdownloadfile.gif"], img[src*="markread.gif"], img[src*="notify.gif"], img[src*="new_topic.gif"], img[src*="new_poll.gif"], img[src*="quote.gif"] { 
+    width: auto !important; height: 32px !important; border-radius: 6px !important; 
+    object-fit: contain !important; cursor: pointer !important; 
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3) !important; transition: filter 0.2s ease, transform 0.1s ease !important; 
+}
+img[src*="TPdownloadfile.gif"]:hover, img[src*="markread.gif"]:hover, img[src*="notify.gif"]:hover, img[src*="new_topic.gif"]:hover, img[src*="new_poll.gif"]:hover, img[src*="quote.gif"]:hover { filter: brightness(1.2) !important; }
 img[src*="TPdownloadfile.gif"]:active, img[src*="markread.gif"]:active, img[src*="notify.gif"]:active, img[src*="new_topic.gif"]:active, img[src*="new_poll.gif"]:active, img[src*="quote.gif"]:active { transform: scale(0.96) !important; }
 
-img[src*="TPdownloadfile.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 105 32'><rect width='105' height='32' rx='6' fill='%233ea6ff'/><path d='M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z' fill='%23121212' transform='translate(6, 4) scale(0.9)'/><text x='32' y='21' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23121212'>Download</text></svg>") !important; }
-img[src*="markread.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 110 32'><rect width='110' height='32' rx='6' fill='%233ea6ff'/><path d='M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z' fill='%23121212' transform='translate(6, 4) scale(0.9)'/><text x='34' y='21' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23121212'>Mark Read</text></svg>") !important; }
-img[src*="notify.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 85 32'><rect width='85' height='32' rx='6' fill='%233ea6ff'/><path d='M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z' fill='%23121212' transform='translate(4, 4) scale(0.9)'/><text x='30' y='21' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23121212'>Notify</text></svg>") !important; }
+/* Secondary Actions (Dark gray background, Light gray text) */
+img[src*="markread.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 110 32'><rect width='110' height='32' rx='6' fill='%232a2a2a'/><path d='M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z' fill='%23e0e0e0' transform='translate(6, 4) scale(0.9)'/><text x='34' y='21' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23e0e0e0'>Mark Read</text></svg>") !important; }
+img[src*="notify.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 85 32'><rect width='85' height='32' rx='6' fill='%232a2a2a'/><path d='M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z' fill='%23e0e0e0' transform='translate(4, 4) scale(0.9)'/><text x='30' y='21' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23e0e0e0'>Notify</text></svg>") !important; }
+img[src*="TPdownloadfile.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 105 32'><rect width='105' height='32' rx='6' fill='%232a2a2a'/><path d='M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z' fill='%23e0e0e0' transform='translate(6, 4) scale(0.9)'/><text x='32' y='21' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23e0e0e0'>Download</text></svg>") !important; }
+img[src*="quote.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 85 32'><rect width='85' height='32' rx='6' fill='%232a2a2a'/><path d='M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z' fill='%23e0e0e0' transform='translate(4, 5) scale(0.9)'/><text x='30' y='21' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23e0e0e0'>Quote</text></svg>") !important; }
+
+/* Primary Actions (Solid Blue background, Dark Text) */
 img[src*="new_topic.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 105 32'><rect width='105' height='32' rx='6' fill='%233ea6ff'/><path d='M19 2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h4l3 3 3-3h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7V8h4V4h2v4h4v4z' fill='%23121212' transform='translate(6, 4) scale(0.9)'/><text x='32' y='21' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23121212'>New Topic</text></svg>") !important; }
 img[src*="new_poll.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 32'><rect width='100' height='32' rx='6' fill='%233ea6ff'/><path d='M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z' fill='%23121212' transform='translate(6, 4) scale(0.9)'/><text x='32' y='21' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23121212'>New Poll</text></svg>") !important; }
-img[src*="quote.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 85 32'><rect width='85' height='32' rx='6' fill='%233ea6ff'/><path d='M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z' fill='%23121212' transform='translate(4, 5) scale(0.9)'/><text x='30' y='21' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23121212'>Quote</text></svg>") !important; }
 
 /* ==========================================================
    12. MODERN INPUTS
@@ -201,27 +264,17 @@ input, select, button, textarea { background-color: #222 !important; border: 1px
 /* ==========================================================
    13. EXTRA TEXT-EMBEDDED BUTTONS (Topic View Additions)
    ========================================================== */
-
-/* Base Styles & Hover Animations for the new buttons */
 img[src*="reply.gif"], img[src*="markunread.gif"], img[src*="print.gif"] { 
     width: auto !important; height: 32px !important; border-radius: 6px !important; 
     object-fit: contain !important; cursor: pointer !important; 
-    box-shadow: 0 2px 6px rgba(0,0,0,0.4) !important; transition: filter 0.2s ease, transform 0.1s ease !important; 
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3) !important; transition: filter 0.2s ease, transform 0.1s ease !important; 
 }
-img[src*="reply.gif"]:hover, img[src*="markunread.gif"]:hover, img[src*="print.gif"]:hover { filter: brightness(1.15) !important; }
+img[src*="reply.gif"]:hover, img[src*="markunread.gif"]:hover, img[src*="print.gif"]:hover { filter: brightness(1.2) !important; }
 img[src*="reply.gif"]:active, img[src*="markunread.gif"]:active, img[src*="print.gif"]:active { transform: scale(0.96) !important; }
 
-/* 1. Reply Button (85px wide, Arrow icon) */
-img[src*="reply.gif"] { 
-    content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 85 32'><rect width='85' height='32' rx='6' fill='%233ea6ff'/><path d='M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z' fill='%23121212' transform='translate(6, 5) scale(0.9)'/><text x='30' y='21' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23121212'>Reply</text></svg>") !important; 
-}
+/* Primary Reply */
+img[src*="reply.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 85 32'><rect width='85' height='32' rx='6' fill='%233ea6ff'/><path d='M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z' fill='%23121212' transform='translate(6, 5) scale(0.9)'/><text x='30' y='21' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23121212'>Reply</text></svg>") !important; }
 
-/* 2. Mark Unread Button (120px wide, Closed Envelope icon) */
-img[src*="markunread.gif"] { 
-    content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 32'><rect width='120' height='32' rx='6' fill='%233ea6ff'/><path d='M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z' fill='%23121212' transform='translate(6, 4) scale(0.9)'/><text x='34' y='21' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23121212'>Mark Unread</text></svg>") !important; 
-}
-
-/* 3. Print Button (85px wide, Printer icon) */
-img[src*="print.gif"] { 
-    content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 85 32'><rect width='85' height='32' rx='6' fill='%233ea6ff'/><path d='M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z' fill='%23121212' transform='translate(4, 4) scale(0.9)'/><text x='32' y='21' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23121212'>Print</text></svg>") !important; 
-}
+/* Secondary Actions */
+img[src*="markunread.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 32'><rect width='120' height='32' rx='6' fill='%232a2a2a'/><path d='M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z' fill='%23e0e0e0' transform='translate(6, 4) scale(0.9)'/><text x='34' y='21' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23e0e0e0'>Mark Unread</text></svg>") !important; }
+img[src*="print.gif"] { content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 85 32'><rect width='85' height='32' rx='6' fill='%232a2a2a'/><path d='M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z' fill='%23e0e0e0' transform='translate(4, 4) scale(0.9)'/><text x='32' y='21' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23e0e0e0'>Print</text></svg>") !important; }
