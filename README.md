@@ -21,3 +21,12 @@ You can apply this right now using a CSS injector extension, like Stylus.
 5. Paste it into the editor and hit Save. 
 
 *The top header and left sidebar can be toggled via the new floating buttons in the top corners to free up screen space.*
+
+## The Power of CSS Injection
+
+CSS injection isn't just for making small changes to colors. By combining modern CSS layout tools with embedded custom images (like SVGs and base64) or even any other image from across the web, it's possible to completely rebuild the forum's UI without needing any modifications to the site's delicate backend. 
+
+Here is a glimpse of what else is possible using this exact same method:
+
+![Glass theme](images/glasstheme.png)
+![Cyber theme](images/cybertheme.png)
