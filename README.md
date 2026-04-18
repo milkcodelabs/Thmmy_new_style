@@ -1,37 +1,23 @@
-# THMMY Modern Dark Mode:
+# THMMY CSS Override
 
-A complete visual overhaul for the THMMY forum. This is a pure CSS "coat of paint" that modernizes the interface, adds Dark Mode, and improves mobile responsiveness without changing a single line of PHP or HTML.
+A clean, modern visual refresh for thmmy.gr. It strips out the clutter, adds collapsible sidebars/headers, and introduces proper Dark and Light modes. Pure CSS, applied locally via your browser. 
 
-![Preview](home.png)
+### Comparisons
 
-## Features:
-- **Dark Mode:** optimized for late-night studying/browsing.
--  **Collapsable top and side panels** Collapses the cluttered header/sidebar into a clean control cluster.
-- **App-Like Feel:**  Removes obsolete menus and simplifies navigation
-- **Zero Risk:** Does not touch the database or forum logic.
+| Original | Light Mode | Dark Mode |
+| :---: | :---: | :---: |
+| **Forum Index**<br>![Old Forum](images/oldforum.png) | <br>![Light Forum](images/lightforum.png) | <br>![Dark Forum](images/darkforum.png) |
+| **Topic View**<br>![Old Topic](images/oldforum2.png) | <br>![Light Topic](images/lightforum2.png) | <br>![Dark Topic](images/darkforum2.png) |
+| **Downloads**<br>![Old Downloads](images/olddownloads.png) | <br>![Light Downloads](images/lightdownloads.png) | <br>![Dark Downloads](images/darkdownloads.png) |
 
-## Installation for Admins
-This theme is designed to be a drop-in replacement for the existing "Scribbles2" theme.
+## How to use it
 
-1. Navigate to the themes directory on the server.
-2. Duplicate the existing `Scribbles2` folder.
-3. Rename the folder to `Scribbles2_Dark`.
-4. Replace the `style.css` inside that folder with the `style.css` from this repository.
-5. Enable the theme in the Admin Panel.
-
-## How to use it RIGHT NOW (for Users)
-If the moderators haven't installed it yet, you can use this theme immediately on your own browser using the **Stylus** extension.
+You can apply this right now using a CSS injector extension, like Stylus.
 
 1. Install **Stylus** for [Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) or [Firefox](https://addons.mozilla.org/en-US/firefox/addon/styl-us/).
-2. Click the extension icon and select "Write style for: thmmy.gr".
-3. Copy the code from `style.css` in this repo.
-4. Paste it into the Stylus editor and hit Save.
-5. Enjoy the modern look!
+2. Open thmmy.gr in your browser.
+3. Click the Stylus extension icon and select **"Write style for: thmmy.gr"**.
+4. Copy the CSS from either the dark or light file in this repository.
+5. Paste it into the editor and hit Save. 
 
-## Screenshots
-
-### Home page
-![Desktop](home.png)
-
-### Forum
-![Desktop](forum.png)
+*The top header and left sidebar can be toggled via the new floating buttons in the top corners to free up screen space.*
